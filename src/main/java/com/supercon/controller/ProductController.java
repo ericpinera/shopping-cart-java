@@ -11,18 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.supercon.utils.Constants.V1_PRODUCTS;
+import static com.supercon.utils.Constants.V1_PRODUCTS_CODE;
+
 @RestController
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
 
-    @GetMapping("/v1/products")
+    @Autowired
+    public ProductController (ProductService productService){
+        this.productService = productService;
+    }
+
+    @GetMapping(V1_PRODUCTS)
     public List<String> getProducts() {
         return productService.getProductCodes();
     }
 
-    @GetMapping("/v1/products/{code}")
+    @GetMapping(V1_PRODUCTS_CODE)
     public ResponseEntity<Product> getProduct(@PathVariable final String code) {
         final Product product = productService.getProduct(code);
         return new ResponseEntity<>(product, HttpStatus.OK);
