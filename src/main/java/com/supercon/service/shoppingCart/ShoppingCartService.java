@@ -1,4 +1,4 @@
-package com.supercon.service;
+package com.supercon.service.shoppingCart;
 
 import com.supercon.model.Customer;
 import com.supercon.model.Product;

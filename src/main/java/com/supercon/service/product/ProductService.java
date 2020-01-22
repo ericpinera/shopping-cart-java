@@ -1,16 +1,16 @@
-package com.supercon.service;
+package com.supercon.service.product;
 
 import com.supercon.model.Product;
+import com.supercon.service.product.IProductoService;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.supercon.utils.Constants.ALL_PRODUCTS;
 
 @Service
-public class ProductService {
+public class ProductService implements IProductoService {
 
     private List<Product> products;
 
@@ -29,11 +29,8 @@ public class ProductService {
     }
 
     public Product getProduct(final String code) {
-        for (final Product product : products) {
-            if (product.getProductCode().equals(code)) {
-                return product;
-            }
+        return products.stream()
+                .filter(p -> p.getProductCode().equals(code))
+                .findFirst().orElse(null);
         }
-        return null;
     }
-}

@@ -1,7 +1,7 @@
 package com.supercon.utils;
 
 import com.supercon.model.Product;
-import com.supercon.service.builders.ProductBuilder;
+import com.supercon.service.product.ProductBuilder;
 
 import java.util.Arrays;
 import java.util.List;

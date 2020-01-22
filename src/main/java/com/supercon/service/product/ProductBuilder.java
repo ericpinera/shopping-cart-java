@@ -1,8 +1,8 @@
-package com.supercon.service.builders;
+package com.supercon.service.product;
 
 import com.supercon.model.Product;
 
-public class ProductBuilder {
+public class ProductBuilder  implements IProductBuilder {
 
     private double price;
     private String productCode;
@@ -14,27 +14,25 @@ public class ProductBuilder {
         this.productName = "";
     }
 
-    public ProductBuilder(double price, String productCode, String name){
-        this.price = price;
-        this.productCode = productCode;
-        this.productName = name;
-    }
-
+    @Override
     public ProductBuilder setPrice(double price) {
         this.price = price;
         return this;
     }
 
+    @Override
     public ProductBuilder setProductCode(String productCode) {
         this.productCode = productCode;
         return this;
     }
 
+    @Override
     public ProductBuilder setName(String name) {
         this.productName = name;
         return this;
     }
 
+    @Override
     public Product build(){
         return new Product (price, productCode, productName);
     }

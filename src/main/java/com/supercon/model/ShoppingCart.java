@@ -1,11 +1,12 @@
 package com.supercon.model;
 
 import com.supercon.service.OrderService;
+import com.supercon.service.shoppingCart.IShoppingCartBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class ShoppingCart {
+public class ShoppingCart implements IShoppingCartBuilder {
 
     //Product and quantity
     private List<Product> products;
@@ -19,7 +20,7 @@ public class ShoppingCart {
 
     private OrderService orderService;
 
-    public ShoppingCart(Customer customer, List<Product> products, String cartState) {
+    public ShoppingCart() {
         this.customer = customer;
         this.products = products;
         this.cartState = cartState;

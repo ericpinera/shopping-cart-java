@@ -1,8 +1,7 @@
 package com.supercon.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.supercon.model.Product;
-import com.supercon.service.ProductService;
+import com.supercon.service.product.ProductService;
 import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
