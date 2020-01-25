@@ -1,9 +1,13 @@
-package com.supercon.model;
+package com.supercon.service.shoppingCart;
 
+import com.supercon.model.Customer;
+import com.supercon.model.Order;
+import com.supercon.model.Product;
 import com.supercon.service.OrderService;
 import com.supercon.service.shoppingCart.IShoppingCartBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart implements IShoppingCartBuilder {
@@ -13,25 +17,77 @@ public class ShoppingCart implements IShoppingCartBuilder {
     private Customer customer;
     private String cartState;
 
+    /*
     @Autowired
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
 
     private OrderService orderService;
+    */
+
 
     public ShoppingCart() {
+        this.customer = new Customer("");
+        this.products = new ArrayList<>();
+        this.cartState = "Activo";
+    }
+
+    @Override
+    public IShoppingCartBuilder addProduct(Product product) {
+        this.products.add(product);
+        return this;
+    }
+
+    @Override
+    public IShoppingCartBuilder removeProduct(Product product) {
+        this.products.removeIf((p) -> p.getProductCode().equals(product.getProductCode()));
+        return this;
+    }
+
+    @Override
+    public IShoppingCartBuilder setCustomer(Customer customer) {
         this.customer = customer;
-        this.products = products;
-        this.cartState = cartState;
+        return this;
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
+    @Override
+    public Integer getLoyaltyPointsEarned() {
+        int loyaltyPointsEarned = 0;
+        for (Product product : products) {
+            if (product.getProductCode().startsWith("DIS_10")) {
+                loyaltyPointsEarned += (product.getPrice() / 10);
+            } else if (product.getProductCode().startsWith("DIS_15")) {
+                loyaltyPointsEarned += (product.getPrice() / 15);
+            } else {
+                loyaltyPointsEarned += (product.getPrice() / 5);
+            }
+        }
+        return loyaltyPointsEarned;
     }
 
-    public void removeProduct(Product product) {
-        products.remove(product);
+    @Override
+    public double getTotalPrice(){
+        double totalPrice = 0;
+
+        int loyaltyPointsEarned = 0;
+        for (Product product : products) {
+            double discount = 0;
+            if (product.getProductCode().startsWith("DIS_10")) {
+                discount = (product.getPrice() * 0.1);
+            } else if (product.getProductCode().startsWith("DIS_15")) {
+                discount = (product.getPrice() * 0.15);
+            }
+            totalPrice += product.getPrice() - discount;
+        }
+        return totalPrice;
+    }
+
+
+
+    @Override
+    public Order checkout() {
+        return new Order(customer, products, getTotalPrice(), getLoyaltyPointsEarned());
     }
 
 
@@ -45,7 +101,7 @@ public class ShoppingCart implements IShoppingCartBuilder {
             Customer earns 1 point on every $10 spent on a product with 10% discount.
             Customer earns 1 point on every $15 spent on a product with 15% discount.
     */
-
+/*
     public void checkout() {
         double totalPrice = 0;
 
@@ -67,5 +123,7 @@ public class ShoppingCart implements IShoppingCartBuilder {
 
         orderService.showConfirmation(customer, products, totalPrice, loyaltyPointsEarned);
     }
+    */
+
 
 }

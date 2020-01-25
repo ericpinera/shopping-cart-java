@@ -23,8 +23,8 @@ public class ProductServiceTest {
 
         productBuilder = mock(ProductBuilder.class);
         productService = new ProductService(Arrays.asList(
-                new Product(1.50, "PROD_01", "Product 01"),
-                new Product(3.45, "PROD_02", "Product 02")
+                new Product(1.50, "PROD_01", "Product 01", loyaltyPointsEarned),
+                new Product(3.45, "PROD_02", "Product 02", loyaltyPointsEarned)
         ));
     }
 

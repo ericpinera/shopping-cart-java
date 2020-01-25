@@ -6,5 +6,6 @@ public interface IProductBuilder {
     IProductBuilder setProductCode(String productCode);
     IProductBuilder setName(String name);
     IProductBuilder setPrice(double price);
+    IProductBuilder setLoyaltyPointsEarned(Integer loyaltyPointsEarned);
     Product build();
 }

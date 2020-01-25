@@ -34,7 +34,7 @@ public class ProductBuilder  implements IProductBuilder {
 
     @Override
     public Product build(){
-        return new Product (price, productCode, productName);
+        return new Product (price, productCode, productName, loyaltyPointsEarned);
     }
 
 
